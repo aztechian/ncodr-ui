@@ -27,7 +27,7 @@
         </div>
         <div>
           <h3>Stacktrace: </h3>
-          <pre v-if="details.stacktrace.length > 0" style="height: 150px;" class="job-data">{{details.stacktrace[0]}}</pre>
+          <pre v-if="details.stacktrace && details.stacktrace.length > 0" style="height: 150px;" class="job-data">{{details.stacktrace[0]}}</pre>
           <p v-else></p>
         </div>
         <div>
@@ -82,6 +82,7 @@ export default {
     },
     duration() {
       let number;
+      if (!this.details.processedOn) return '-';
       if (this.details.finishedOn) {
         // this job has finished
         number = this.details.finishedOn - this.details.processedOn;

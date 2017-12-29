@@ -1,11 +1,11 @@
 <template>
 <v-layout child-flex>
-  <v-data-table hide-actions loading="true" class="elevation-1" v-bind:headers="headers" :items="items">
+  <v-data-table class="elevation-1" :headers="headers" :pagination.sync="pagination" :items="items">
     <template slot="items" slot-scope="props">
       <tr @click="goToJob(props.item.id)">
         <td class="text-xs-right">{{ props.item.id }}</td>
         <td class="text-xs-right">{{ props.item.progress }}</td>
-        <td class="text-xs-right">{{ props.item.finishedOn }}</td>
+        <td class="text-xs-right">{{ props.item.finishedOn | dynDate }}</td>
         <td class="text-xs-right">{{ props.item.failedReason }}</td>
         <td class="text-xs-right">{{ props.item.attemptsMade }}</td>
       </tr>
@@ -15,11 +15,16 @@
 </template>
 
 <script>
-import store from '@/store';
+import moment from 'moment';
 
 export default {
   data() {
     return {
+      pagination: {
+        sortBy: 'id',
+        descending: true,
+        rowsPerPage: 25,
+      },
       headers: [
         {
           text: 'ID',
@@ -36,6 +41,7 @@ export default {
         {
           text: 'Failure Reason',
           value: 'Failure Reason',
+          sortable: false,
         },
         {
           text: 'Attempts',
@@ -60,13 +66,26 @@ export default {
       this.$store.dispatch('getJobs', { queue, status });
     },
   },
+  filters: {
+    dynDate(ts) {
+      if (!ts) return '-';
+      const now = moment();
+      const timestamp = moment(ts);
+      if (now.diff(timestamp, 'day') > 7) {
+        return timestamp.format('MMM Do');
+      } else if (timestamp.isBefore(now.startOf('day'))) {
+        return timestamp.format('ddd h:mm:ss A');
+      }
+      return timestamp.format('h:mm:ss A');
+    },
+  },
   created() {
     this.fetchJobList();
   },
   beforeRouteUpdate(to, from, next) {
     const queue = to.params.queue;
     const status = to.params.state;
-    store.dispatch('getJobs', { queue, status }).then(() => next());
+    this.$store.dispatch('getJobs', { queue, status }).then(() => next());
   },
 };
 </script>

@@ -3,8 +3,14 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+const config = {};
+if (window.ncodr) {
+  Object.assign(config, window.ncodr);
+}
+
 export default new Vuex.Store({
   state: {
+    config,
     queueList: [],
     jobDetail: {},
     jobList: [],
@@ -25,14 +31,17 @@ export default new Vuex.Store({
   },
   actions: {
     getQueues({ commit }) {
-      return Vue.http.get('http://localhost:2000/api/queues').then(response => commit('updateQueueList', response.body));
+      return Vue.http.get('/api/queues').then(response => commit('updateQueueList', response.body));
+    },
+    getQueueStatus({ commit }, payload) {
+      return Vue.http.get(`/api/queues/${payload.queue}/`);
     },
     getJobs({ commit }, payload) {
-      return Vue.http.get(`http://localhost:2000/api/queues/${payload.queue}/jobs`, { params: { status: payload.status } })
+      return Vue.http.get(`/api/queues/${payload.queue}/jobs`, { params: { status: payload.status } })
         .then(response => commit('updateJobList', response.body));
     },
     getJob({ commit }, payload) {
-      return Vue.http.get(`http://localhost:2000/api/queues/${payload.queue}/jobs/${payload.id}`)
+      return Vue.http.get(`/api/queues/${payload.queue}/jobs/${payload.id}`)
         .then(response => commit('updateJobDetail', response.body));
     },
   },
