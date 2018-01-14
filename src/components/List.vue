@@ -4,10 +4,10 @@
     <template slot="items" slot-scope="props">
       <tr @click="goToJob(props.item.id)">
         <td class="text-xs-right">{{ props.item.id }}</td>
-        <td class="text-xs-right">{{ props.item.progress }}</td>
+        <td class="text-xs-right">{{ props.item.progress }}%</td>
         <td class="text-xs-right">{{ props.item.finishedOn | dynDate }}</td>
-        <td class="text-xs-right">{{ props.item.failedReason }}</td>
-        <td class="text-xs-right">{{ props.item.attemptsMade }}</td>
+        <td class="hidden-md-and-down text-xs-right">{{ props.item.failedReason }}</td>
+        <td class="hidden-md-and-down text-xs-right">{{ props.item.attemptsMade }}</td>
       </tr>
     </template>
   </v-data-table>
@@ -42,10 +42,12 @@ export default {
           text: 'Failure Reason',
           value: 'Failure Reason',
           sortable: false,
+          class: 'hidden-md-and-down',
         },
         {
           text: 'Attempts',
           value: 'Attempts',
+          class: 'hidden-md-and-down',
         },
       ],
     };

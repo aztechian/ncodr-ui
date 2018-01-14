@@ -3,44 +3,35 @@
   <v-layout child-flex>
     <v-card>
       <v-card-title primary-title>
-        <h1>Job #{{details.id}}</h1>
-        <h1>
+        <h3 class="display-2 heading">Job #{{details.id}}</h3>
+        <h3 class="display-2 heading">
           <i :title="details.state" class="material-icons" style="vertical-align: text-top;">{{mapStatusIcon}}</i>
            {{details.state | capitalize}}
-        </h1>
+        </h3>
       </v-card-title>
-      <!-- <section class="mdc-card__supporting-text"> -->
+
       <v-card-text>
-        <h3>
+        <h3 class="heading">
           Progress: {{details.progress}} %
           <v-progress-linear v-model="details.progress"></v-progress-linear>
-          <hr v-if="details.progress <= 0"></hr>
         </h3>
-
         <div>
-          <h3>Data: </h3>
-          <pre class="job-data">{{details.data | prettyJSON}}</pre>
+          <v-text-field label="Data" class="job-data" multi-line full-width readonly :value="details.data | prettyJSON"></v-text-field>
         </div>
         <div>
-          <h3>Attempts: </h3>
-          <p>{{details.attemptsMade}}</p>
+          <v-text-field label="Attempts" readonly full-width :value="details.attemptsMade"></v-text-field>
         </div>
         <div>
-          <h3>Stacktrace: </h3>
-          <pre v-if="details.stacktrace && details.stacktrace.length > 0" style="height: 150px;" class="job-data">{{details.stacktrace[0]}}</pre>
-          <p v-else></p>
+          <v-text-field label="Stacktrace" class="job-data" multi-line full-width readonly :value="details.stacktrace | prettyJSON"></v-text-field>
         </div>
         <div>
-          <h3>Completed at: </h3>
-          <p>{{details.finishedOn | longdate}}</p>
+          <v-text-field label="Completed At" readonly full-width :value="details.finishedOn | longdate"></v-text-field>
         </div>
         <div>
-          <h3>Duration: </h3>
-          <p>{{duration}}</p>
+          <v-text-field label="Duration" readonly full-width :value="duration"></v-text-field>
         </div>
       </v-card-text>
-      <!-- </section> -->
-      <!-- <section class="mdc-card__actions"> -->
+
       <v-card-actions>
         <v-btn flat>Copy</v-btn>
         <v-btn flat>Retry</v-btn>
@@ -51,8 +42,6 @@
       <button @click="$emit('retry', details.id)" class="mdc-button mdc-button--compact mdc-card__action">Retry</button> -->
         <!-- </section> -->
       </v-card-actions>
-
-
     </v-card>
   </v-layout>
 </v-slide-x-transition>
@@ -69,7 +58,7 @@ export default {
       return value.toString().charAt(0).toUpperCase() + value.slice(1);
     },
     prettyJSON(json) {
-      return JSON.stringify(json, undefined, 2);
+      return JSON.stringify(json, undefined, 2).replace(/\\n/g, '\n');
     },
     longdate(ts) {
       if (!ts) return '-';
@@ -129,18 +118,8 @@ export default {
     justify-content: space-between;
   }
 
-  pre.job-data {
+  .job-data textarea {
     overflow: auto;
-    background-color: lightgrey;
-    border: 1px solid darkgrey;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 8px;
-    margin: 10px;
-    padding: 8px;
-  }
-
-  .card__text h3,p {
-    display: inline;
+    white-space: pre;
   }
 </style>
