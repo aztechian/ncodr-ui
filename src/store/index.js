@@ -14,6 +14,10 @@ export default new Vuex.Store({
     queueList: [],
     jobDetail: {},
     jobList: [],
+    dialog: false,
+    snackbar: false,
+    snackbarColor: 'green',
+    snackbarText: '',
   },
   mutations: {
     updateQueueList(state, queues) {
@@ -27,6 +31,18 @@ export default new Vuex.Store({
     },
     updateJobDetail(state, job) {
       state.jobDetail = job;
+    },
+    setDialog(state, to) {
+      state.dialog = to;
+    },
+    showSnackbar(state, payload) {
+      state.snackbarColor = payload.color || state.snackbarColor;
+      state.snackbarText = payload.text || state.snackbarText;
+      if (Object.prototype.hasOwnProperty.call(payload, 'state')) {
+        state.snackbar = payload.state;
+      } else {
+        state.snackbar = true;
+      }
     },
   },
   actions: {
@@ -43,6 +59,10 @@ export default new Vuex.Store({
     getJob({ commit }, payload) {
       return Vue.http.get(`/api/queues/${payload.queue}/jobs/${payload.id}`)
         .then(response => commit('updateJobDetail', response.body));
+    },
+    submitJob({ commit }, payload) {
+      const url = `/api/queus/${encodeURIComponent(payload.queuename)}/jobs/`;
+      return Vue.http.post(url, this.options, { responseType: 'json' });
     },
   },
 });

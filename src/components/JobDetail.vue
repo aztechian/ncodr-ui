@@ -58,7 +58,9 @@ export default {
       return value.toString().charAt(0).toUpperCase() + value.slice(1);
     },
     prettyJSON(json) {
-      return JSON.stringify(json, undefined, 2).replace(/\\n/g, '\n');
+      const str = JSON.stringify(json, undefined, 2);
+      if (str) return str.replace(/\\n/g, '\n');
+      return '';
     },
     longdate(ts) {
       if (!ts) return '-';

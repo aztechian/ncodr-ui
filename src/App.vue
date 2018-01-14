@@ -82,14 +82,22 @@
     <component :is="dialogContent"></component>
   </v-dialog>
 
+  <v-snackbar :timeout="snackbarTimeout" :color="snackbarColor" v-model="snackbar">
+    {{ snackbarText }}
+    <v-btn dark flat @click.native="closeSnackbar">Close</v-btn>
+  </v-snackbar>
 </v-app>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import NewRipDialog from './components/NewRipDialog';
+import NewEncodeDialog from './components/NewEncodeDialog';
+
 export default {
   data: () => ({
-    dialog: false,
     drawer: null,
+    snackbarTimeout: 6000,
     dialogContent: 'NewRipDialog',
     navbarStaticItems: [
       {
@@ -109,14 +117,30 @@ export default {
       'failed',
     ],
   }),
+  components: {
+    NewRipDialog,
+    NewEncodeDialog,
+  },
   methods: {
     showNewDialog() {
       const q = this.$route.params.queue;
       // console.log(`showing dialog for ${q}`);
-      if (q === 'disc ripping') {
-        this.$data.dialogContent = 'NewRipDialog';
+      switch (q) {
+        case 'disc ripping':
+          this.$data.dialogContent = 'NewRipDialog';
+          break;
+        case 'video encoding':
+          this.$data.dialogContent = 'NewEncodeDialog';
+          break;
+        default:
+          this.$data.dialogContent = '';
+          break;
       }
-      this.$data.dialog = true;
+
+      if (this.$data.dialogContent !== '') this.$store.commit('setDialog', true);
+    },
+    closeSnackbar() {
+      this.$store.commit('showSnackbar', { state: false });
     },
   },
   computed: {
@@ -130,14 +154,20 @@ export default {
       }));
       return queueItems.concat(this.$data.navbarStaticItems);
     },
+    snackbar: {
+      get() {
+        return this.$store.state.snackbar;
+      },
+      set(value) {
+        this.$store.commit('showSnackbar', { state: value });
+      },
+    },
+    ...mapState(['dialog', 'snackbarColor', 'snackbarText']),
   },
   filters: {
     capitalize(s) {
       return s.toString().charAt(0).toUpperCase() + s.slice(1);
     },
-  },
-  props: {
-    source: String,
   },
 };
 </script>

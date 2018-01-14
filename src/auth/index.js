@@ -7,9 +7,7 @@ export default {
   },
 
   getAuthHeader() {
-    return {
-      Authorization: `JWT ${localStorage.getItem('id_token')}`,
-    };
+    return `JWT ${localStorage.getItem('id_token')}`;
   },
 
   logout() {

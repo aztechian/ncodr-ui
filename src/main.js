@@ -42,6 +42,13 @@ router.beforeEach((to, from, next) => {
   return next();
 });
 
+// set up AJAX request interceptor
+Vue.http.interceptors.push((request, next) => {
+  request.headers.set('Authorization', auth.getAuthHeader());
+  // continue to next interceptor
+  next();
+});
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
