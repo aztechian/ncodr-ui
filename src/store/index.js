@@ -53,7 +53,7 @@ export default new Vuex.Store({
       return Vue.http.get(`/api/queues/${payload.queue}/`);
     },
     getJobs({ commit }, payload) {
-      return Vue.http.get(`/api/queues/${payload.queue}/jobs`, { params: { status: payload.status } })
+      return Vue.http.get(`/api/queues/${payload.queue}/jobs/`, { params: { status: payload.status } })
         .then(response => commit('updateJobList', response.body));
     },
     getJob({ commit }, payload) {
@@ -61,8 +61,8 @@ export default new Vuex.Store({
         .then(response => commit('updateJobDetail', response.body));
     },
     submitJob({ commit }, payload) {
-      const url = `/api/queus/${encodeURIComponent(payload.queuename)}/jobs/`;
-      return Vue.http.post(url, this.options, { responseType: 'json' });
+      const url = `/api/queues/${encodeURIComponent(payload.queuename)}/jobs/`;
+      return Vue.http.post(url, payload.data, { responseType: 'json' });
     },
   },
 });

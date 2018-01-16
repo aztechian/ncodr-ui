@@ -31,7 +31,7 @@ export default {
       this.$store.commit('setDialog', false);
     },
     submit() {
-      return this.$store.dispatch('submitJob', { queuename: this.queuename }).then((response) => {
+      return this.$store.dispatch('submitJob', { queuename: this.queuename, data: this.$data }).then((response) => {
         this.$store.commit('showSnackbar', { text: `Submitted Job #${response.body.id}`, color: 'success' });
         this.close();
       })
@@ -44,7 +44,7 @@ export default {
           text = `Error: ${err.body.message}`;
         }
         this.$store.commit('showSnackbar', { text, color });
-      });
+      }).then(() => this.$store.dispatch('getJobs', { queue: this.queuename, status: this.$route.params.state }));
     },
   },
   computed: {

@@ -3,31 +3,31 @@
   <v-card-title class="grey lighten-4 py-4 title">
     Create {{queuename}} Job
   </v-card-title>
-  <v-container grid-list-sm class="pa-4">
-    <v-layout row wrap>
-      <v-flex xs12 align-center justify-space-between>
-        <v-layout align-center>
-          <v-avatar size="40px" class="mr-3">
-            <img src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png" alt="">
-          </v-avatar>
-          <v-text-field prepend-icon="input" placeholder="Input"></v-text-field>
-        </v-layout>
-      </v-flex>
-      <v-flex xs6>
-        <v-text-field prepend-icon="redo" placeholder="Output"></v-text-field>
-      </v-flex>
-      <v-flex xs6>
-        <v-text-field placeholder="Scan"></v-text-field>
-      </v-flex>
-      <v-flex xs12>
-        <v-text-field prepend-icon="notes" textarea placeholder="Options"></v-text-field>
-      </v-flex>
-    </v-layout>
-  </v-container>
+  <v-form v-model="valid" ref="form">
+    <v-container grid-list-sm class="pa-4">
+      <v-layout row wrap>
+        <v-flex xs12>
+          <v-select prepend-icon="group_work" label="Type" placeholder="handbrake" v-model="type" :items="types" :rules="typevalidation" required></v-select>
+        </v-flex>
+        <v-flex xs6 align-center justify-space-between>
+          <v-text-field prepend-icon="input" label="Input" v-model="input" :rules="inputvalidation" required></v-text-field>
+        </v-flex>
+        <v-flex xs6 justify-space-between>
+          <v-text-field prepend-icon="redo" label="Output" v-model="output"></v-text-field>
+        </v-flex>
+        <v-flex xs3>
+          <v-switch label="Scan" v-model="scan"></v-switch>
+        </v-flex>
+        <v-flex xs12>
+          <v-text-field prepend-icon="notes" textarea label="Options" v-model="options"></v-text-field>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-form>
   <v-card-actions>
     <v-spacer></v-spacer>
     <v-btn flat @click="close">Cancel</v-btn>
-    <v-btn flat color="primary" @click="submit">Create</v-btn>
+    <v-btn flat color="primary" @click="submit" :disabled="!valid">Create</v-btn>
   </v-card-actions>
 </v-card>
 </template>
@@ -35,18 +35,65 @@
 <script>
 export default {
   name: 'NewRipDialog',
-  props: ['queuename'],
   data() {
     return {
-      dialog: false,
+      types: [
+        'handbrake',
+        'avconv',
+      ],
+      type: '',
+      input: '',
+      output: '',
+      scan: false,
+      options: '',
+      valid: false,
+      typevalidation: [
+        v => !!v || 'Type is required',
+      ],
+      inputvalidation: [
+        v => !!v || 'Input is required',
+      ],
     };
   },
   methods: {
     close() {
-      this.$emit('dialog-close');
+      this.$store.commit('setDialog', false);
     },
     submit() {
+      if (this.$refs.form.validate()) {
+        const jobdata = {
+          type: this.$data.type,
+          input: this.$data.input,
+        };
 
+        if (this.$data.output) jobdata.output = this.$data.output;
+        if (this.$data.options) jobdata.options = this.$data.options;
+        if (this.$data.scan) jobdata.scan = this.$data.scan;
+
+        return this.$store.dispatch('submitJob', { queuename: this.queuename, data: jobdata }).then((response) => {
+          this.$store.commit('showSnackbar', { text: `Submitted Job #${response.body.id}`, color: 'success' });
+          this.clear();
+          this.close();
+        }).catch((err) => {
+          const color = 'error';
+          let text = '';
+          if (!err.body) {
+            text = `Error submitting Job: ${err.status}`;
+          } else {
+            text = `Error: ${err.body.message}`;
+          }
+          this.$store.commit('showSnackbar', { text, color });
+        }).then(() => this.$store.dispatch('getJobs', { queue: this.queuename, status: this.$route.params.state }));
+      }
+      return '';
+    },
+    clear() {
+      this.$refs.form.reset();
+    },
+  },
+  computed: {
+    queuename() {
+      return this.$route.params.queue;
     },
   },
 };
