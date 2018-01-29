@@ -18,6 +18,7 @@ export default new Vuex.Store({
     snackbar: false,
     snackbarColor: 'green',
     snackbarText: '',
+    avatar: '',
   },
   mutations: {
     updateQueueList(state, queues) {
@@ -43,6 +44,9 @@ export default new Vuex.Store({
       } else {
         state.snackbar = true;
       }
+    },
+    setAvatar(state, img) {
+      state.avatar = img;
     },
   },
   actions: {

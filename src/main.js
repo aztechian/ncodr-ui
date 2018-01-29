@@ -49,6 +49,25 @@ Vue.http.interceptors.push((request, next) => {
   next();
 });
 
+Vue.http.interceptors.push((request, next) => {
+  next((response) => {
+    if (response.status === 401 || response.status === 403) {
+      if (auth.isAuthenticated) {
+        auth.refresh()
+          .then(() => Vue.http[request.method.toLowerCase()](request.url, request.params))
+          .catch(() => {
+            auth.logout();
+            store.commit('setAvatar', '');
+            router.push('/login');
+          });
+      }
+      auth.logout();
+      store.commit('setAvatar', '');
+      router.push('/login');
+    }
+  });
+});
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -61,10 +80,12 @@ new Vue({
     NewRipDialog,
   },
   created() {
+    console.log(auth);
     if (!store.state.config.useAuth) {
       store.dispatch('getQueues');
     } else if (auth.isAuthenticated) {
       store.dispatch('getQueues');
+      store.commit('setAvatar', auth.getAvatar());
     }
   },
 });

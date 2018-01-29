@@ -60,9 +60,10 @@
       <v-btn icon>
         <v-icon>notifications</v-icon>
       </v-btn>
-      <v-btn icon large>
-        <v-avatar size="32px" tile>
-          <img src="./assets/logo.png" alt="Ncodr">
+      <v-btn icon large @click.stop="logout">
+        <v-avatar size="32px">
+          <img v-if="avatar" :src="avatar" alt="user">
+          <img v-else src="./assets/logo.png" alt="Ncodr">
         </v-avatar>
       </v-btn>
     </div>
@@ -91,6 +92,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import auth from './auth';
 import NewRipDialog from './components/NewRipDialog';
 import NewEncodeDialog from './components/NewEncodeDialog';
 
@@ -142,6 +144,9 @@ export default {
     closeSnackbar() {
       this.$store.commit('showSnackbar', { state: false });
     },
+    logout() {
+      auth.logout();
+    },
   },
   computed: {
     items() {
@@ -153,6 +158,9 @@ export default {
         children: this.$data.queueStates.map(s => ({ text: s })),
       }));
       return queueItems.concat(this.$data.navbarStaticItems);
+    },
+    avatar() {
+      return this.$store.state.avatar;
     },
     snackbar: {
       get() {

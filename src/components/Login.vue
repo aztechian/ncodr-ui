@@ -41,8 +41,10 @@ export default {
       // See https://developers.google.com/identity/sign-in/web/reference#users
       // const profile = googleUser.getBasicProfile();
       const jwt = googleUser.getAuthResponse().id_token;
-      localStorage.setItem('id_token', jwt);
-      auth.isAuthenticated = true;
+      auth.googleUser = googleUser;
+      auth.login(jwt);
+      this.$store.commit('setAvatar', auth.getAvatar());
+      this.$router.push('/');
     },
     onSignInError(error) {
       // `error` contains any error occurred.
