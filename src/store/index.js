@@ -68,5 +68,9 @@ export default new Vuex.Store({
       const url = `/api/queues/${encodeURIComponent(payload.queuename)}/jobs/`;
       return Vue.http.post(url, payload.data, { responseType: 'json' });
     },
+    getQueueFiles({ commit }, payload) {
+      const url = `/api/queues/${encodeURIComponent(payload.queuename)}/files/`;
+      return Vue.http.get(url);
+    },
   },
 });

@@ -80,7 +80,6 @@ new Vue({
     NewRipDialog,
   },
   created() {
-    console.log(auth);
     if (!store.state.config.useAuth) {
       store.dispatch('getQueues');
     } else if (auth.isAuthenticated) {

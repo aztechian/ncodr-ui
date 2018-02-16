@@ -44,6 +44,7 @@ export default {
       auth.googleUser = googleUser;
       auth.login(jwt);
       this.$store.commit('setAvatar', auth.getAvatar());
+      this.$store.dispatch('getQueues');
       this.$router.push('/');
     },
     onSignInError(error) {

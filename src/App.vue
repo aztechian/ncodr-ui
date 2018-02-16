@@ -1,9 +1,9 @@
 <template>
 <v-app id="ncodr">
-  <v-navigation-drawer fixed clipped app v-model="drawer">
+  <v-navigation-drawer fixed :clipped="$vuetify.breakpoint.mdAndUp" app v-model="drawer">
     <v-list dense>
       <template v-for="(item, i) in items">
-          <v-layout row v-if="item.heading" align-center :key="i">
+          <v-layout row v-if="item.heading" align-center :key="item.heading">
             <v-flex xs6>
               <v-subheader v-if="item.heading">
                 {{ item.heading }}
@@ -13,11 +13,8 @@
               <a href="#!" class="body-2 black--text">EDIT</a>
             </v-flex>
           </v-layout>
-          <v-list-group v-else-if="item.children" v-model="item.model" no-action>
-            <v-list-tile slot="item" @click="">
-              <v-list-tile-action>
-                <v-icon>{{ item.model ? item.icon : item['icon-alt'] }}</v-icon>
-              </v-list-tile-action>
+          <v-list-group v-else-if="item.children" v-model="item.model" :key="item.text" :prepend-icon="item.model ? item.icon : item['icon-alt']" append-icon="">
+            <v-list-tile slot="activator">
               <v-list-tile-content>
                 <v-list-tile-title>
                   {{ item.text }}

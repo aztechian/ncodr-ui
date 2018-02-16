@@ -10,7 +10,7 @@
           <v-select prepend-icon="group_work" label="Type" placeholder="handbrake" v-model="type" :items="types" :rules="typevalidation" required></v-select>
         </v-flex>
         <v-flex xs6 align-center justify-space-between>
-          <v-text-field prepend-icon="input" label="Input" v-model="input" :rules="inputvalidation" required></v-text-field>
+          <v-select prepend-icon="input" label="Input" autocomplete cache-items :items="inputFiles" :search-input.sync="search" :loading="inputLoading" v-model="input" :rules="inputvalidation" required></v-select>
         </v-flex>
         <v-flex xs6 justify-space-between>
           <v-text-field prepend-icon="redo" label="Output" v-model="output"></v-text-field>
@@ -47,17 +47,34 @@ export default {
       scan: false,
       options: '',
       valid: false,
+      inputLoading: false,
       typevalidation: [
         v => !!v || 'Type is required',
       ],
       inputvalidation: [
         v => !!v || 'Input is required',
       ],
+      inputFiles: [],
+      search: null,
     };
+  },
+  watch: {
+    search(val) {
+      if (val) this.getFiles(val);
+    },
   },
   methods: {
     close() {
       this.$store.commit('setDialog', false);
+    },
+    getFiles(val) {
+      const queuename = this.queuename;
+      this.inputLoading = true;
+      return this.$store.dispatch('getQueueFiles', { queuename, val })
+        .then((response) => {
+          this.inputFiles = response.body;
+          this.inputLoading = false;
+        });
     },
     submit() {
       if (this.$refs.form.validate()) {
@@ -70,8 +87,14 @@ export default {
         if (this.$data.options) jobdata.options = this.$data.options;
         if (this.$data.scan) jobdata.scan = this.$data.scan;
 
-        return this.$store.dispatch('submitJob', { queuename: this.queuename, data: jobdata }).then((response) => {
-          this.$store.commit('showSnackbar', { text: `Submitted Job #${response.body.id}`, color: 'success' });
+        return this.$store.dispatch('submitJob', {
+          queuename: this.queuename,
+          data: jobdata,
+        }).then((response) => {
+          this.$store.commit('showSnackbar', {
+            text: `Submitted Job #${response.body.id}`,
+            color: 'success',
+          });
           this.clear();
           this.close();
         }).catch((err) => {
@@ -82,8 +105,14 @@ export default {
           } else {
             text = `Error: ${err.body.message}`;
           }
-          this.$store.commit('showSnackbar', { text, color });
-        }).then(() => this.$store.dispatch('getJobs', { queue: this.queuename, status: this.$route.params.state }));
+          this.$store.commit('showSnackbar', {
+            text,
+            color,
+          });
+        }).then(() => this.$store.dispatch('getJobs', {
+          queue: this.queuename,
+          status: this.$route.params.state,
+        }));
       }
       return '';
     },
@@ -95,6 +124,9 @@ export default {
     queuename() {
       return this.$route.params.queue;
     },
+  },
+  created() {
+    this.getFiles();
   },
 };
 </script>
