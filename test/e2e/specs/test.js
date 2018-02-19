@@ -10,10 +10,10 @@ module.exports = {
 
     browser
       .url(devServer)
-      .waitForElementVisible('#app', 5000)
-      .assert.elementPresent('.layout.column.align-center')
-      .assert.containsText('blockquote', 'First, solve the problem. Then, write the code.')
-      .assert.elementCount('img', 1)
+      .waitForElementVisible('#ncodr', 5000)
+      .assert.elementPresent('.navigation-drawer>.list')
+      .assert.containsText('div', 'Ncodr')
+      .assert.elementCount('nav', 1)
       .end();
   },
 };
