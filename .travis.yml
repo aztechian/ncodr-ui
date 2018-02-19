@@ -1,6 +1,5 @@
 ---
 dist: trusty
-sudo: required
 language: node_js
 node_js:
   - "8"
@@ -9,9 +8,6 @@ env:
   global:
     - CC_TEST_REPORTER_ID=74bd25476cc9429c05fb4abe0771081c964d03ea13d84d4c604bd392f3834409
 
-services:
-  - docker
-
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
@@ -19,14 +15,13 @@ before_script:
 
 script:
   - npm run lint
-  - npm run test
-  - npm run compile
+  - npm run unit
+# e2e tests don't run on travis-ci
+# need to set up sauce labs
+  - npm run build
 # test that we haven't forgotten to build to dist/
   - git diff-index --quiet HEAD --
-  - docker build -t aztechian/ncodr:$(jq -r .version package.json) .
+
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-
-after_success:
-  - echo "would push to docker here"
