@@ -20,6 +20,8 @@ script:
 # need to set up sauce labs
   - npm run build
 # test that we haven't forgotten to build to dist/
+  - pwd
+  - git status
   - git diff-index --quiet HEAD --
 
 
