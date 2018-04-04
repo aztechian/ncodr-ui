@@ -19,7 +19,7 @@
           <v-switch label="Scan" v-model="scan"></v-switch>
         </v-flex>
         <v-flex xs12>
-          <v-text-field prepend-icon="notes" textarea label="Options" v-model="options"></v-text-field>
+          <v-text-field prepend-icon="notes" textarea label="Options" v-model="options" :rules="optionsValidation"></v-text-field>
         </v-flex>
       </v-layout>
     </v-container>
@@ -54,6 +54,9 @@ export default {
       inputvalidation: [
         v => !!v || 'Input is required',
       ],
+      optionsValidation: [
+        v => !!JSON.parse(v) || 'Not valid JSON',
+      ],
       inputFiles: [],
       search: null,
     };
@@ -84,7 +87,7 @@ export default {
         };
 
         if (this.$data.output) jobdata.output = this.$data.output;
-        if (this.$data.options) jobdata.options = this.$data.options;
+        if (this.$data.options) jobdata.options = JSON.parse(this.$data.options);
         if (this.$data.scan) jobdata.scan = this.$data.scan;
 
         return this.$store.dispatch('submitJob', {
