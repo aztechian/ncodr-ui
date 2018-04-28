@@ -59,12 +59,11 @@ export default {
   },
   methods: {
     goToJob(id) {
-      const queue = this.$route.params.queue;
+      const { queue } = this.$route.params;
       this.$router.push({ name: 'JobDetail', params: { queue, id } });
     },
     fetchJobList() {
-      const queue = this.$route.params.queue;
-      const status = this.$route.params.state;
+      const { queue, state: status } = this.$route.params;
       this.$store.dispatch('getJobs', { queue, status });
     },
   },
@@ -85,8 +84,7 @@ export default {
     this.fetchJobList();
   },
   beforeRouteUpdate(to, from, next) {
-    const queue = to.params.queue;
-    const status = to.params.state;
+    const { queue, state: status } = to.params;
     this.$store.dispatch('getJobs', { queue, status }).then(() => next());
   },
 };

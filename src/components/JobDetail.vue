@@ -108,8 +108,7 @@ export default {
     },
   },
   created() {
-    const queue = this.$route.params.queue;
-    const id = this.$route.params.id;
+    const { queue, id } = this.$route.params;
     this.$store.dispatch('getJob', { queue, id });
   },
 };
