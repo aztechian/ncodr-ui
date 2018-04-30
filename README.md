@@ -1,5 +1,7 @@
 # ncodr-ui
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/aztechian/ncodr-ui.svg)](https://greenkeeper.io/)
+
 > Front-End Web UI for ncodr
 
 ## Build Setup

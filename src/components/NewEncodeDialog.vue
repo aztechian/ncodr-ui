@@ -71,7 +71,7 @@ export default {
       this.$store.commit('setDialog', false);
     },
     getFiles(val) {
-      const queuename = this.queuename;
+      const { queuename } = this;
       this.inputLoading = true;
       return this.$store.dispatch('getQueueFiles', { queuename, val })
         .then((response) => {

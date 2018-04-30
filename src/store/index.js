@@ -50,6 +50,9 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    // eslint doesn't like { commit } if it doesn't get used in the action, but vuex appears to
+    // require having that parameter (the context)
+    /* eslint-disable no-unused-vars */
     getQueues({ commit }) {
       return Vue.http.get('/api/queues').then(response => commit('updateQueueList', response.body));
     },
@@ -72,5 +75,6 @@ export default new Vuex.Store({
       const url = `/api/queues/${encodeURIComponent(payload.queuename)}/files/`;
       return Vue.http.get(url);
     },
+    /* eslint-enable no-unused-vars */
   },
 });

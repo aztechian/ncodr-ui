@@ -16,14 +16,11 @@ before_script:
 script:
   - npm run lint
   - npm run unit
+# test that we haven't forgotten to build to dist/
+  - (( $(git log -n1 --format=%at -- dist/) > $(git log -n1 --format=%at -- src/) ))
 # e2e tests don't run on travis-ci
 # need to set up sauce labs
   - npm run build
-# test that we haven't forgotten to build to dist/
-  - pwd
-  - git status
-  - git diff-index --quiet HEAD --
-
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

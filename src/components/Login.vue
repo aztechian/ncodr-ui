@@ -23,7 +23,7 @@ import auth from '../auth';
 
 export default {
   data() {
-    const config = this.$store.state.config;
+    const { config } = this.$store.state;
     if (config.clientId) {
       return {
         googleSignInParams: {
