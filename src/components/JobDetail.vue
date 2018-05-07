@@ -5,7 +5,8 @@
       <v-card-title primary-title>
         <h3 class="display-2 heading">Job #{{details.id}}</h3>
         <h3 class="display-2 heading">
-          <i :title="details.state" class="material-icons" style="vertical-align: text-top;">{{mapStatusIcon}}</i>
+          <i :title="details.state" class="material-icons"
+            style="vertical-align: text-top;">{{mapStatusIcon}}</i>
            {{details.state | capitalize}}
         </h3>
       </v-card-title>
@@ -16,16 +17,23 @@
           <v-progress-linear v-model="details.progress"></v-progress-linear>
         </h3>
         <div>
-          <v-text-field label="Data" class="job-data" multi-line full-width readonly :value="details.data | prettyJSON"></v-text-field>
+          <v-text-field label="Data" class="job-data" multi-line full-width readonly
+            :value="details.data | prettyJSON">
+          </v-text-field>
         </div>
         <div>
-          <v-text-field label="Attempts" readonly full-width :value="details.attemptsMade"></v-text-field>
+          <v-text-field label="Attempts" readonly full-width :value="details.attemptsMade">
+          </v-text-field>
         </div>
         <div>
-          <v-text-field label="Stacktrace" class="job-data" multi-line full-width readonly :value="details.stacktrace | prettyJSON"></v-text-field>
+          <v-text-field label="Stacktrace" class="job-data" multi-line full-width readonly
+            :value="details.stacktrace | prettyJSON">
+          </v-text-field>
         </div>
         <div>
-          <v-text-field label="Completed At" readonly full-width :value="details.finishedOn | longdate"></v-text-field>
+          <v-text-field label="Completed At" readonly full-width
+            :value="details.finishedOn | longdate">
+          </v-text-field>
         </div>
         <div>
           <v-text-field label="Duration" readonly full-width :value="duration"></v-text-field>
@@ -37,10 +45,13 @@
         <v-btn flat>Retry</v-btn>
         <v-spacer></v-spacer>
         <v-btn flat>Close</v-btn>
-        <!-- <button @click="$emit('close')" class="mdc-button mdc-button--compact mdc-card__action">Close</button>
-      <button @click="$emit('copy', details)" class="mdc-button mdc-button--compact mdc-card__action">Copy</button>
-      <button @click="$emit('retry', details.id)" class="mdc-button mdc-button--compact mdc-card__action">Retry</button> -->
+        <!-- eslint-disable max-len -->
+        <!--
+        <button @click="$emit('close')" class="mdc-button mdc-button--compact mdc-card__action">Close</button>
+        <button @click="$emit('copy', details)" class="mdc-button mdc-button--compact mdc-card__action">Copy</button>
+        <button @click="$emit('retry', details.id)" class="mdc-button mdc-button--compact mdc-card__action">Retry</button> -->
         <!-- </section> -->
+        <!-- eslint-enable max-len  -->
       </v-card-actions>
     </v-card>
   </v-layout>

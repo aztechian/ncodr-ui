@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld';
-import JobDetail from '@/components/JobDetail';
-import List from '@/components/List';
-import Login from '@/components/Login';
+import HelloWorld from '@/components/HelloWorld.vue';
+import JobDetail from '@/components/JobDetail.vue';
+import List from '@/components/List.vue';
+import Login from '@/components/Login.vue';
 
 Vue.use(Router);
 

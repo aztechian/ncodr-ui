@@ -7,10 +7,15 @@
     <v-container grid-list-sm class="pa-4">
       <v-layout row wrap>
         <v-flex xs12>
-          <v-select prepend-icon="group_work" label="Type" placeholder="handbrake" v-model="type" :items="types" :rules="typevalidation" required></v-select>
+          <v-select prepend-icon="group_work" label="Type" placeholder="handbrake" v-model="type"
+            :items="types" :rules="typevalidation" required>
+          </v-select>
         </v-flex>
         <v-flex xs6 align-center justify-space-between>
-          <v-select prepend-icon="input" label="Input" autocomplete cache-items :items="inputFiles" :search-input.sync="search" :loading="inputLoading" v-model="input" :rules="inputvalidation" required></v-select>
+          <v-select prepend-icon="input" label="Input" autocomplete cache-items :items="inputFiles"
+            :search-input.sync="search" :loading="inputLoading" v-model="input"
+            :rules="inputvalidation" required>
+          </v-select>
         </v-flex>
         <v-flex xs6 justify-space-between>
           <v-text-field prepend-icon="redo" label="Output" v-model="output"></v-text-field>
@@ -19,7 +24,9 @@
           <v-switch label="Scan" v-model="scan"></v-switch>
         </v-flex>
         <v-flex xs12>
-          <v-text-field prepend-icon="notes" textarea label="Options" v-model="options" :rules="optionsValidation"></v-text-field>
+          <v-text-field prepend-icon="notes" textarea label="Options" v-model="options"
+            :rules="optionsValidation">
+          </v-text-field>
         </v-flex>
       </v-layout>
     </v-container>

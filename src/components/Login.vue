@@ -3,12 +3,15 @@
   <v-flex xs12 sm6 offset-sm3>
     <v-card>
       <v-card-title primary-title>
-        <p v-if="useAuth" class="headline mb-0 text-xs-center" style="width: 100%;">Sign In with Google</p>
-        <p v-else="useAuth" class="headline mb-0 text-xs-center" style="width: 100%;">No Login Required</p>
+        <p v-if="useAuth" class="headline mb-0 text-xs-center" style="width: 100%;">
+          Sign In with Google
+        </p>
+        <p v-else class="headline mb-0 text-xs-center" style="width: 100%;">No Login Required</p>
       </v-card-title>
       <v-card-text>
         <div v-show="useAuth" class="text-xs-center">
-          <g-signin-button :params="googleSignInParams" @success="onSignInSuccess" @error="onSignInError">
+          <g-signin-button :params="googleSignInParams"
+            @success="onSignInSuccess" @error="onSignInError">
             Sign in with Google
           </g-signin-button>
         </div>
