@@ -6,24 +6,22 @@ import Vuetify from 'vuetify';
 import GSigninButton from 'vue-google-signin-button';
 import 'vuetify/dist/vuetify.css';
 
-import App from './App';
+import App from './App.vue';
 import router from './router';
 import store from './store';
 import auth from './auth';
-
-import NewRipDialog from './components/NewRipDialog';
 
 Vue.use(VueResource);
 Vue.use(GSigninButton);
 Vue.use(Vuetify, {
   theme: {
-    primary: '#ee44aa',
-    secondary: '#424242',
-    accent: '#82B1FF',
-    error: '#FF5252',
-    info: '#2196F3',
-    success: '#4CAF50',
-    warning: '#FFC107',
+    primary: '#64DD17',
+    secondary: '#78909C',
+    accent: '#00B0FF',
+    error: '#EF5350',
+    warning: '#FDD835',
+    info: '#2196f3',
+    success: '#43A047',
   },
 });
 
@@ -68,7 +66,6 @@ Vue.http.interceptors.push((request, next) => {
   });
 });
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
@@ -77,7 +74,6 @@ new Vue({
   components: {
     App,
     router,
-    NewRipDialog,
   },
   created() {
     if (!store.state.config.useAuth) {
@@ -87,4 +83,5 @@ new Vue({
       store.commit('setAvatar', auth.getAvatar());
     }
   },
-});
+  render: h => h(App),
+}).$mount('#app');

@@ -2,7 +2,7 @@
 <v-app id="ncodr">
   <v-navigation-drawer fixed :clipped="$vuetify.breakpoint.mdAndUp" app v-model="drawer">
     <v-list dense>
-      <template v-for="(item, i) in items">
+      <template v-for="item in items">
           <v-layout row v-if="item.heading" align-center :key="item.heading">
             <v-flex xs6>
               <v-subheader v-if="item.heading">
@@ -13,7 +13,8 @@
               <a href="#!" class="body-2 black--text">EDIT</a>
             </v-flex>
           </v-layout>
-          <v-list-group v-else-if="item.children" v-model="item.model" :key="item.text" :prepend-icon="item.model ? item.icon : item['icon-alt']" append-icon="">
+          <v-list-group v-else-if="item.children" v-model="item.model" :key="item.text"
+            :prepend-icon="item.model ? item.icon : item['icon-alt']" append-icon="">
             <v-list-tile slot="activator">
               <v-list-tile-content>
                 <v-list-tile-title>
@@ -21,7 +22,8 @@
                 </v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile v-for="(child, i) in item.children" :key="i" :to="{ name: 'JobList', params: { queue: item.text, state: child.text } }">
+            <v-list-tile v-for="(child, i) in item.children" :key="i" :to="{ name: 'JobList',
+              params: { queue: item.text, state: child.text } }">
               <v-list-tile-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
               </v-list-tile-action>
@@ -32,7 +34,7 @@
               </v-list-tile-content>
             </v-list-tile>
           </v-list-group>
-          <v-list-tile v-else @click="">
+          <v-list-tile v-else :key="item.text">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
@@ -45,8 +47,10 @@
         </template>
     </v-list>
   </v-navigation-drawer>
-  <v-toolbar color="blue darken-3" dark app clipped-left fixed>
-    <v-toolbar-title to="/" :style="$vuetify.breakpoint.smAndUp ? 'width: 300px; min-width: 250px' : 'min-width: 72px'" class="ml-0 pl-3">
+  <v-toolbar app color="primary" clipped-left fixed>
+    <v-toolbar-title to="/"
+      :style="$vuetify.breakpoint.smAndUp ? 'width: 300px; min-width: 250px' : 'min-width: 72px'"
+      class="ml-0 pl-3">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <a href="/">
         <span class="hidden-xs-only">Ncodr</span>
@@ -72,7 +76,7 @@
       </v-layout>
     </v-container>
   </v-content>
-  <v-btn fab bottom right color="pink" dark fixed @click.stop="showNewDialog">
+  <v-btn color="secondary" fab bottom right fixed @click.stop="showNewDialog">
     <v-icon>add</v-icon>
   </v-btn>
 
@@ -90,8 +94,8 @@
 <script>
 import { mapState } from 'vuex';
 import auth from './auth';
-import NewRipDialog from './components/NewRipDialog';
-import NewEncodeDialog from './components/NewEncodeDialog';
+import NewRipDialog from './components/NewRipDialog.vue';
+import NewEncodeDialog from './components/NewEncodeDialog.vue';
 
 export default {
   data: () => ({
@@ -184,6 +188,6 @@ export default {
 
   .application .toolbar__title a {
     text-decoration: none;
-    color: white;
+    color: black;
   }
 </style>

@@ -6,7 +6,8 @@
   <v-container grid-list-sm class="pa-4">
     <v-layout row wrap>
       <v-flex xs12>
-        <v-text-field prepend-icon="notes" textarea placeholder="Options" v-model="options"></v-text-field>
+        <v-text-field prepend-icon="notes" textarea placeholder="Options" v-model="options">
+        </v-text-field>
       </v-flex>
     </v-layout>
   </v-container>
