@@ -1,15 +1,15 @@
 self.__precacheManifest = [
   {
-    "revision": "c6bfad3c89a0afc00a5539c4d5fb4730",
-    "url": "/apple-touch-icon.png"
+    "revision": "9c211d157b373ae177c28d41995a8df6",
+    "url": "/browserconfig.xml"
   },
   {
     "revision": "a7ecb65a250c625633d354c9ee65fdc2",
     "url": "/mstile-150x150.png"
   },
   {
-    "revision": "c103b03625e7cfbd0c926aaff8533ade",
-    "url": "/android-chrome-512x512.png"
+    "revision": "f3bf68756c2bda6275d6f1e03f00116d",
+    "url": "/config.js"
   },
   {
     "revision": "e5e44f32e77eac6eab76",
@@ -44,12 +44,12 @@ self.__precacheManifest = [
     "url": "/css/app.03ca3460.css"
   },
   {
-    "revision": "4d2fcc6d9081d7105a1d54af951be574",
-    "url": "/config.js"
+    "revision": "c6bfad3c89a0afc00a5539c4d5fb4730",
+    "url": "/apple-touch-icon.png"
   },
   {
-    "revision": "9c211d157b373ae177c28d41995a8df6",
-    "url": "/browserconfig.xml"
+    "revision": "c103b03625e7cfbd0c926aaff8533ade",
+    "url": "/android-chrome-512x512.png"
   },
   {
     "revision": "ef02cbdade4b8cb3f0634549c17781ea",
