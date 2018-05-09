@@ -1,3 +1,4 @@
-var ncodr = {
-
-}
+window.ncodr = {
+  useAuth: false,
+  // clientId: '',
+};
