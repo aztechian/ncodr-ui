@@ -36,6 +36,9 @@ export default new Vuex.Store({
     setDialog(state, to) {
       state.dialog = to;
     },
+    updateJobProgress(state, progress) {
+      state.jobDetail.progress = progress;
+    },
     showSnackbar(state, payload) {
       state.snackbarColor = payload.color || state.snackbarColor;
       state.snackbarText = payload.text || state.snackbarText;

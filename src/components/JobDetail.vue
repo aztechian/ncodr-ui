@@ -13,8 +13,8 @@
 
       <v-card-text>
         <h3 class="heading">
-          Progress: {{details.progress}} %
-          <v-progress-linear v-model="details.progress"></v-progress-linear>
+          Progress: {{progress}} %
+          <v-progress-linear v-model="progress"></v-progress-linear>
         </h3>
         <div>
           <v-text-field label="Data" class="job-data" multi-line full-width readonly
@@ -62,6 +62,10 @@
 import moment from 'moment';
 
 export default {
+  data: () => ({
+    progress: 0,
+    events: null,
+  }),
   filters: {
     capitalize(value) {
       if (!value) return '';
@@ -120,7 +124,25 @@ export default {
   },
   created() {
     const { queue, id } = this.$route.params;
-    this.$store.dispatch('getJob', { queue, id });
+    this.$store.dispatch('getJob', { queue, id })
+      .then(() => {
+        this.progress = this.$store.state.jobDetail.progress;
+      });
+
+    this.events = new EventSource(`/api/queues/${queue}/jobs/${id}/events`);
+    this.events.addEventListener('progress', e => {
+      this.progress = e.data;
+    });
+    this.events.addEventListener('complete', e => {
+      events.close();
+    });
+  },
+  beforeRouteLeave(to, from, next) {
+    // close the event source if we're navigating away
+    if (this.events) {
+      this.events.close();
+    }
+    next();
   },
 };
 </script>
