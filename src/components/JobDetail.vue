@@ -130,11 +130,11 @@ export default {
       });
 
     this.events = new EventSource(`/api/queues/${queue}/jobs/${id}/events`);
-    this.events.addEventListener('progress', e => {
+    this.events.addEventListener('progress', (e) => {
       this.progress = e.data;
     });
-    this.events.addEventListener('complete', e => {
-      events.close();
+    this.events.addEventListener('complete', () => {
+      this.events.close();
     });
   },
   beforeRouteLeave(to, from, next) {
