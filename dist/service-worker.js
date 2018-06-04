@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.5ca3a8ac898571c3bae95e8f726cc591.js"
+  "/precache-manifest.872b00aaa82a25037d417d82f9d60b3b.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "ncodr-ui"});

@@ -51,17 +51,17 @@
     <v-toolbar-title to="/"
       :style="$vuetify.breakpoint.smAndUp ? 'width: 300px; min-width: 250px' : 'min-width: 72px'"
       class="ml-0 pl-3">
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer" aria-label="Toggle Side Drawer"></v-toolbar-side-icon>
       <a href="/">
         <span class="hidden-xs-only">Ncodr</span>
         <span class="material-icons icon">local_movies</span>
       </a>
     </v-toolbar-title>
     <div class="d-flex align-center" style="margin-left: auto">
-      <v-btn icon>
+      <v-btn icon aria-label="Notifications">
         <v-icon>notifications</v-icon>
       </v-btn>
-      <v-btn icon large @click.stop="logout">
+      <v-btn icon large @click.stop="logout" aria-label="User Avatar">
         <v-avatar size="32px">
           <img v-if="avatar" :src="avatar" alt="user">
           <img v-else src="./assets/logo.png" alt="Ncodr">
@@ -76,7 +76,7 @@
       </v-layout>
     </v-container>
   </v-content>
-  <v-btn color="secondary" fab bottom right fixed @click.stop="showNewDialog">
+  <v-btn color="secondary" fab bottom right fixed aria-label="Create New Job" @click.stop="showNewDialog">
     <v-icon>add</v-icon>
   </v-btn>
 

@@ -66,7 +66,8 @@ Vue.http.interceptors.push((request, next) => {
   });
 });
 
-new Vue({
+// eslint-disable-next-line no-unused-vars
+const vm = new Vue({
   el: '#app',
   router,
   store,
@@ -83,5 +84,9 @@ new Vue({
       store.commit('setAvatar', auth.getAvatar());
     }
   },
+  mounted() {
+    // registers the service worker -- Vue equivalent to onLoad()
+    navigator.serviceWorker.register('/service-worker.js');
+  },
   render: h => h(App),
-}).$mount('#app');
+});
