@@ -51,7 +51,8 @@
     <v-toolbar-title to="/"
       :style="$vuetify.breakpoint.smAndUp ? 'width: 300px; min-width: 250px' : 'min-width: 72px'"
       class="ml-0 pl-3">
-      <v-toolbar-side-icon @click.stop="drawer = !drawer" aria-label="Toggle Side Drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer" aria-label="Toggle Side Drawer">
+      </v-toolbar-side-icon>
       <a href="/">
         <span class="hidden-xs-only">Ncodr</span>
         <span class="material-icons icon">local_movies</span>
@@ -76,7 +77,8 @@
       </v-layout>
     </v-container>
   </v-content>
-  <v-btn color="secondary" fab bottom right fixed aria-label="Create New Job" @click.stop="showNewDialog">
+  <v-btn color="secondary" fab bottom right fixed aria-label="Create New Job"
+    @click.stop="showNewDialog">
     <v-icon>add</v-icon>
   </v-btn>
 
