@@ -69,7 +69,6 @@ export default {
   filters: {
     capitalize(value) {
       if (!value) return '';
-
       return value.toString().charAt(0).toUpperCase() + value.slice(1);
     },
     prettyJSON(json) {
@@ -131,7 +130,7 @@ export default {
 
     this.events = new EventSource(`/api/queues/${queue}/jobs/${id}/events`);
     this.events.addEventListener('progress', (e) => {
-      this.progress = e.data;
+      this.progress = parseInt(e.data.replace('"',''), 10);
     });
     this.events.addEventListener('complete', () => {
       this.events.close();
