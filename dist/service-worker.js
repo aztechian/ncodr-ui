@@ -11,10 +11,10 @@
  * See https://goo.gl/2aRDsh
  */
 
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js");
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.4fb07ecbdb8a7daae939571f1854a3e8.js"
+  "/precache-manifest.cd00b6325901b49fa8acdbcd00f848d3.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "ncodr-ui"});

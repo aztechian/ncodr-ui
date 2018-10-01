@@ -130,7 +130,7 @@ export default {
 
     this.events = new EventSource(`/api/queues/${queue}/jobs/${id}/events`);
     this.events.addEventListener('progress', (e) => {
-      this.progress = parseInt(e.data.replace('"',''), 10);
+      this.progress = parseInt(e.data.replace('"', ''), 10);
     });
     this.events.addEventListener('complete', () => {
       this.events.close();

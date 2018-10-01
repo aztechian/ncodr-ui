@@ -1,13 +1,13 @@
 module.exports = {
   root: true,
-  'extends': [
+  extends: [
     'plugin:vue/essential',
-    '@vue/airbnb'
+    '@vue/airbnb',
   ],
-  'rules': {
+  rules: {
     'import/no-extraneous-dependencies': [
       'error',
-      { 'devDependencies': true },
+      { devDependencies: true },
     ],
     'no-param-reassign': ['error', {
       props: true,
@@ -16,4 +16,4 @@ module.exports = {
       ],
     }],
   },
-}
+};
