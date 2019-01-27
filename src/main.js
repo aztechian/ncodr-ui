@@ -2,9 +2,9 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import VueResource from 'vue-resource';
-import Vuetify from 'vuetify';
+import Vuetify from 'vuetify/lib';
 import GSigninButton from 'vue-google-signin-button';
-import 'vuetify/dist/vuetify.css';
+import 'vuetify/src/stylus/app.styl';
 
 import App from './App.vue';
 import router from './router';
