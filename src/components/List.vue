@@ -74,7 +74,8 @@ export default {
       const timestamp = moment(ts);
       if (now.diff(timestamp, 'day') > 7) {
         return timestamp.format('MMM Do');
-      } else if (timestamp.isBefore(now.startOf('day'))) {
+      }
+      if (timestamp.isBefore(now.startOf('day'))) {
         return timestamp.format('ddd h:mm:ss A');
       }
       return timestamp.format('h:mm:ss A');
