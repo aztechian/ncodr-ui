@@ -27,8 +27,7 @@ export default {
   },
   refresh() {
     if (this.googleUser) {
-      return this.googleUser.reloadAuthResponse()
-        .then(authResponse => this.login(authResponse.id_token));
+      return this.googleUser.reloadAuthResponse().then(authResponse => this.login(authResponse.id_token));
     }
     return Promise.reject(new Error('No GoogleUser object!'));
   },

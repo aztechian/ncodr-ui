@@ -1,17 +1,22 @@
 <template>
-<v-layout child-flex>
-  <v-data-table class="elevation-1" :headers="headers" :pagination.sync="pagination" :items="items">
-    <template slot="items" slot-scope="props">
-      <tr @click="goToJob(props.item.id)">
-        <td class="text-xs-right">{{ props.item.id }}</td>
-        <td class="text-xs-right">{{ props.item.progress }}%</td>
-        <td class="text-xs-right">{{ props.item.finishedOn | dynDate }}</td>
-        <td class="hidden-md-and-down text-xs-right">{{ props.item.failedReason }}</td>
-        <td class="hidden-md-and-down text-xs-right">{{ props.item.attemptsMade }}</td>
-      </tr>
-    </template>
-  </v-data-table>
-</v-layout>
+  <v-layout child-flex>
+    <v-data-table
+      class="elevation-1"
+      :headers="headers"
+      :pagination.sync="pagination"
+      :items="items"
+    >
+      <template slot="items" slot-scope="props">
+        <tr @click="goToJob(props.item.id)">
+          <td class="text-xs-right">{{ props.item.id }}</td>
+          <td class="text-xs-right">{{ props.item.progress }}%</td>
+          <td class="text-xs-right">{{ props.item.finishedOn | dynDate }}</td>
+          <td class="hidden-md-and-down text-xs-right">{{ props.item.failedReason }}</td>
+          <td class="hidden-md-and-down text-xs-right">{{ props.item.attemptsMade }}</td>
+        </tr>
+      </template>
+    </v-data-table>
+  </v-layout>
 </template>
 
 <script>
