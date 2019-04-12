@@ -2,7 +2,7 @@
 dist: trusty
 language: node_js
 node_js:
-  - "8"
+  - "lts/*"
 
 env:
   global:
@@ -15,11 +15,11 @@ before_script:
 
 script:
   - npm run lint
-  - npm run test
-# test that we haven't forgotten to build to dist/
+  - npm run cover
+  # test that we haven't forgotten to build to dist/
   - (( $(git log -n1 --format=%at -- dist/) >= $(git log -n1 --format=%at -- src/) ))
-# e2e tests don't run on travis-ci
-# need to set up sauce labs
+  # e2e tests don't run on travis-ci
+  # need to set up sauce labs
   - npm run build
 
 after_script:

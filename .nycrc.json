@@ -1,0 +1,4 @@
+{
+  "exclude": ["dist"],
+  "reporter": ["lcovonly", "text", "text-summary", "html"]
+}

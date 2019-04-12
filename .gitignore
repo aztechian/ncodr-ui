@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 /coverage
+/.nyc_output
 /tests/e2e/reports/
 selenium-debug.log
 /public/config.js
