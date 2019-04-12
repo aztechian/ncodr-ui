@@ -7,9 +7,12 @@ module.exports = {
     proxy: 'http://localhost:2000',
   },
   configureWebpack: {
-    plugins: [
-      new VuetifyLoaderPlugin(),
-      new webpack.ContextReplacementPlugin(/moment\/locale$/, /en$/),
-    ],
+    plugins: [new VuetifyLoaderPlugin(), new webpack.ContextReplacementPlugin(/moment\/locale$/, /en$/)],
+  },
+  pwa: {
+    workboxOptions: {
+      cleanupOutdatedCaches: true,
+    },
+    name: 'ncodr',
   },
 };
