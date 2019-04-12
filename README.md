@@ -1,5 +1,5 @@
 # ncodr-ui
-> Front-End Web UI for ncodr[https://github.com/aztechian/ncodr]
+> Front-End Web UI for [ncodr](https://github.com/aztechian/ncodr)
 
 [![Greenkeeper Status][greenkeeper-image]][greenkeeper-url]
 [![Build Status][travis-image]][travis-url]

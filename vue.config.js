@@ -10,9 +10,6 @@ module.exports = {
     plugins: [new VuetifyLoaderPlugin(), new webpack.ContextReplacementPlugin(/moment\/locale$/, /en$/)],
   },
   pwa: {
-    workboxOptions: {
-      cleanupOutdatedCaches: true,
-    },
     name: 'ncodr',
   },
 };
