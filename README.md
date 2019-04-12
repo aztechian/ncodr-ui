@@ -1,8 +1,13 @@
 # ncodr-ui
 > Front-End Web UI for [ncodr](https://github.com/aztechian/ncodr)
 
+[![Primary Language][lang-image]][gh-url]
+[![License][license-image]][gh-url]
 [![Greenkeeper Status][greenkeeper-image]][greenkeeper-url]
+[![Pull Requests][pr-image]][gh-pr-url]
 [![Build Status][travis-image]][travis-url]
+[![Latest Version][version-image]][gh-url]
+[![CodeClimate Issues][ccissues]][ccissue-url]
 
 One to two paragraph statement about your product and what it does.
 
@@ -92,3 +97,11 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 [wiki]: https://github.com/aztechian/ncodr-ui/wiki
 [greenkeeper-image]: https://badges.greenkeeper.io/aztechian/ncodr-ui.svg
 [greenkeeper-url]: https://greenkeeper.io/
+[ccissues]: https://img.shields.io/codeclimate/issues/aztechian/ncodr-ui.svg?label=CodeClimate%20issues
+[ccissue-url]: https://codeclimate.com/github/aztechian/ncodr-ui
+[lang-image]: https://img.shields.io/github/languages/top/aztechian/ncodr-ui.svg
+[gh-url]: https://github.com/aztechian/ncodr-ui
+[pr-image]: https://img.shields.io/github/issues-pr-raw/aztechian/ncodr-ui.svg
+[gh-pr-url]: https://github.com/aztechian/ncodr-ui/pulls
+[license-image]: https://img.shields.io/github/license/aztechian/ncodr-ui.svg?color=orange
+[version-image]: https://img.shields.io/github/package-json/v/aztechian/ncodr-ui.svg
