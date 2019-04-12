@@ -1,19 +1,25 @@
 module.exports = {
   root: true,
-  extends: [
-    'plugin:vue/essential',
-    '@vue/airbnb',
-  ],
+  extends: ['plugin:vue/essential', '@vue/airbnb'],
   rules: {
-    'import/no-extraneous-dependencies': [
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'no-param-reassign': [
       'error',
-      { devDependencies: true },
+      {
+        props: true,
+        ignorePropertyModificationsFor: [
+          'state', // Vuex mutations
+        ],
+      },
     ],
-    'no-param-reassign': ['error', {
-      props: true,
-      ignorePropertyModificationsFor: [
-        'state', // Vuex mutations
-      ],
-    }],
+    'max-len': [
+      'error',
+      {
+        code: 150,
+        ignoreTrailingComments: true,
+        ignoreUrls: true,
+        ignoreTemplateLiterals: true,
+      },
+    ],
   },
 };
