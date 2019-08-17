@@ -67,16 +67,16 @@
 </template>
 
 <script>
-import moment from "moment";
+import moment from 'moment';
 
 export default {
   data: () => ({
     progress: 0,
-    events: null
+    events: null,
   }),
   filters: {
     capitalize(value) {
-      if (!value) return "";
+      if (!value) return '';
       return (
         value
           .toString()
@@ -86,13 +86,13 @@ export default {
     },
     prettyJSON(json) {
       const str = JSON.stringify(json, undefined, 2);
-      if (str) return str.replace(/\\n/g, "\n");
-      return "";
+      if (str) return str.replace(/\\n/g, '\n');
+      return '';
     },
     longdate(ts) {
-      if (!ts) return "-";
-      return moment(ts).format("llll");
-    }
+      if (!ts) return '-';
+      return moment(ts).format('llll');
+    },
   },
   computed: {
     details() {
@@ -100,14 +100,14 @@ export default {
     },
     duration() {
       let number;
-      if (!this.details.processedOn) return "-";
+      if (!this.details.processedOn) return '-';
       if (this.details.finishedOn) {
         // this job has finished
         number = this.details.finishedOn - this.details.processedOn;
       } else {
         number = Date.now() - this.details.processedOn;
       }
-      const d = moment.duration(number, "milliseconds");
+      const d = moment.duration(number, 'milliseconds');
       if (number < 60 * 1000) return `${d.asSeconds().toFixed(0)} seconds`;
       if (number <= 3600 * 1000) return `${d.asMinutes().toFixed(0)} minutes`;
       return `${d.asHours().toFixed(0)} hours`;
@@ -115,36 +115,36 @@ export default {
     mapStatusIcon() {
       // completed, failed, delayed, active, waiting, paused, stuck
       switch (this.details.state) {
-        case "completed":
-          return "done";
-        case "failed":
-          return "error";
-        case "delayed":
-          return "hourglass_empty";
-        case "active":
-          return "play_circle_outline";
-        case "waiting":
-          return "watch_later";
-        case "paused":
-          return "pause_circle_outline";
-        case "stuck":
-          return "help_outline";
+        case 'completed':
+          return 'done';
+        case 'failed':
+          return 'error';
+        case 'delayed':
+          return 'hourglass_empty';
+        case 'active':
+          return 'play_circle_outline';
+        case 'waiting':
+          return 'watch_later';
+        case 'paused':
+          return 'pause_circle_outline';
+        case 'stuck':
+          return 'help_outline';
         default:
-          return "warning";
+          return 'warning';
       }
-    }
+    },
   },
   created() {
     const { queue, id } = this.$route.params;
-    this.$store.dispatch("getJob", { queue, id }).then(() => {
+    this.$store.dispatch('getJob', { queue, id }).then(() => {
       this.progress = this.$store.state.jobDetail.progress;
     });
 
     this.events = new EventSource(`/api/queues/${queue}/jobs/${id}/events`);
-    this.events.addEventListener("progress", e => {
-      this.progress = parseInt(e.data.replace('"', ""), 10);
+    this.events.addEventListener('progress', (e) => {
+      this.progress = parseInt(e.data.replace('"', ''), 10);
     });
-    this.events.addEventListener("complete", () => {
+    this.events.addEventListener('complete', () => {
       this.events.close();
     });
   },
@@ -154,7 +154,7 @@ export default {
       this.events.close();
     }
     next();
-  }
+  },
 };
 </script>
 
