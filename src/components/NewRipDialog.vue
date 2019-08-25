@@ -18,52 +18,57 @@
 
 <script>
 export default {
-  name: 'NewRipDialog',
+  name: "NewRipDialog",
   data() {
     return {
-      options: '',
+      options: ""
     };
   },
   methods: {
     close() {
-      this.$store.commit('setDialog', false);
+      this.$store.commit("setDialog", false);
     },
     submit() {
+      const jobdata = {};
+      if (this.$data.options) jobdata.options = JSON.parse(this.$data.options);
+
       return this.$store
-        .dispatch('submitJob', {
+        .dispatch("submitJob", {
           queuename: this.queuename,
-          data: this.$data,
+          data: jobdata
         })
-        .then((response) => {
-          this.$store.commit('showSnackbar', {
+        .then(response => {
+          this.$store.commit("showSnackbar", {
             text: `Submitted Job #${response.body.id}`,
-            color: 'success',
+            color: "success"
           });
           this.close();
         })
-        .catch((err) => {
-          const color = 'error';
-          let text = '';
+        .catch(err => {
+          const color = "error";
+          let text = "";
           if (!err.body) {
             text = `Error submitting Job: ${err.status}`;
           } else {
             text = `Error: ${err.body.message}`;
           }
-          this.$store.commit('showSnackbar', {
+          this.$store.commit("showSnackbar", {
             text,
-            color,
+            color
           });
         })
-        .then(() => this.$store.dispatch('getJobs', {
-          queue: this.queuename,
-          status: this.$route.params.state,
-        }));
-    },
+        .then(() =>
+          this.$store.dispatch("getJobs", {
+            queue: this.queuename,
+            status: this.$route.params.state
+          })
+        );
+    }
   },
   computed: {
     queuename() {
       return this.$route.params.queue;
-    },
-  },
+    }
+  }
 };
 </script>
