@@ -35,7 +35,7 @@
     "style-loader": "^1.0.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
-    "vue": "^2.6.10",
+    "vue": "^2.6.11",
     "vue-google-signin-button": "^1.0.2",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.4",
