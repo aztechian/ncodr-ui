@@ -22,7 +22,7 @@
     "@vue/cli-plugin-unit-mocha": "^3.5.1",
     "@vue/cli-service": "^3.5.3",
     "@vue/eslint-config-airbnb": "^4.0.0",
-    "@vue/test-utils": "^1.0.0-beta.29",
+    "@vue/test-utils": "^1.0.0-beta.32",
     "chai": "^4.2.0",
     "cross-env": "^5.2.0",
     "css-loader": "^3.2.0",
